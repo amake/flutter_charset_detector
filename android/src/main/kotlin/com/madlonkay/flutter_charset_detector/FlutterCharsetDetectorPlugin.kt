@@ -1,36 +1,66 @@
 package com.madlonkay.flutter_charset_detector
 
 import androidx.annotation.NonNull
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
+import org.mozilla.universalchardet.UniversalDetector
+import java.nio.ByteBuffer
+import java.nio.charset.Charset
+import java.nio.charset.IllegalCharsetNameException
+import java.nio.charset.UnsupportedCharsetException
 
 /** FlutterCharsetDetectorPlugin */
-class FlutterCharsetDetectorPlugin: FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
+class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
+    private lateinit var channel: MethodChannel
 
-  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_charset_detector")
-    channel.setMethodCallHandler(this)
-  }
-
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
+    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_charset_detector")
+        channel.setMethodCallHandler(this)
     }
-  }
 
-  override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-    channel.setMethodCallHandler(null)
-  }
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+        when (call.method) {
+            "autoDecode" -> handleAutoDecode(call, result)
+            else -> result.notImplemented()
+        }
+    }
+
+    private fun handleAutoDecode(call: MethodCall, result: Result) {
+        val data = call.argument<ByteArray>("data")
+        if (data == null) {
+            result.error("MissingArg", "Required argument missing", "${call.method} requires 'data'")
+            return
+        }
+        val encodingName = data.inputStream().use(UniversalDetector::detectCharset)
+        if (encodingName == null) {
+            result.error("DetectionFailed", "The encoding could not be detected", null)
+            return
+        }
+        val charset: Charset = try {
+            Charset.forName(encodingName)
+        } catch (e: Exception) {
+            when (e) {
+                is IllegalCharsetNameException,
+                is UnsupportedCharsetException -> {
+                    result.error("UnsupportedEncoding", "The detected encoding $encodingName is not supported.", null)
+                    return
+                }
+                else -> throw e
+            }
+        }
+        val string = charset.decode(ByteBuffer.wrap(data)).toString()
+        result.success(
+            mapOf(
+                "encoding" to encodingName,
+                "string" to string,
+            )
+        )
+    }
+
+    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        channel.setMethodCallHandler(null)
+    }
 }
