@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_charset_detector (0.0.1):
+    - Flutter
+    - UniversalDetector
+  - UniversalDetector (1.4.0)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_charset_detector (from `.symlinks/plugins/flutter_charset_detector/ios`)
+
+SPEC REPOS:
+  trunk:
+    - UniversalDetector
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_charset_detector:
+    :path: ".symlinks/plugins/flutter_charset_detector/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_charset_detector: c407172f589bf26b4a78cfcc2b218a2d65163486
+  UniversalDetector: 79d854af2c3f16dae10e7e302e1d1be95d10189d
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.9.3
