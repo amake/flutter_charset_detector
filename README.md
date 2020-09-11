@@ -27,7 +27,7 @@ import 'package:flutter_charset_detector/flutter_charset_detector.dart';
 
 Uint8List bytes = getBytes(); // bytes with unknown encoding
 DecodingResult result = CharsetDetector.autoDecode(bytes);
-print(result.encoding); // => e.g. 'SHIFT_JIS'
+print(result.charset); // => e.g. 'SHIFT_JIS'
 print(result.string); // => e.g. '日本語'
 ```
 
