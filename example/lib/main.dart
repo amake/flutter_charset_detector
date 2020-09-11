@@ -1,56 +1,139 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_charset_detector/flutter_charset_detector.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+const _kAssetName = 'assets/sjis-example.txt';
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterCharsetDetector.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
-
+class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Charset Detector Example'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: ListView(
+          padding: const EdgeInsets.all(8),
+          children: const [
+            _DefaultCharsetCard(_kAssetName),
+            _DefaultCharsetReplacingCard(_kAssetName),
+            _DetectedCharsetCard(_kAssetName),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DefaultCharsetCard extends StatelessWidget {
+  const _DefaultCharsetCard(this.asset, {Key key}) : super(key: key);
+  final String asset;
+  @override
+  Widget build(BuildContext context) {
+    return _LoadedTextCard(
+      title: 'Default Charset (UTF-8)',
+      content: rootBundle.loadString(asset),
+    );
+  }
+}
+
+class _DefaultCharsetReplacingCard extends StatelessWidget {
+  const _DefaultCharsetReplacingCard(this.asset, {Key key}) : super(key: key);
+  final String asset;
+  @override
+  Widget build(BuildContext context) {
+    return _LoadedTextCard(
+      title: 'UTF-8 (allow malformed)',
+      content: _load(),
+    );
+  }
+
+  Future<String> _load() async {
+    final bytes = await rootBundle.load(asset);
+    return utf8.decode(bytes.buffer.asUint8List(), allowMalformed: true);
+  }
+}
+
+class _DetectedCharsetCard extends StatelessWidget {
+  const _DetectedCharsetCard(this.asset, {Key key}) : super(key: key);
+  final String asset;
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<DecodingResult>(
+      future: _load(),
+      builder: (context, snapshot) {
+        final encoding = snapshot.data?.encoding ?? '?';
+        return _LoadedTextCard(
+          title: 'Detected Charset: $encoding',
+          content: snapshot.data?.string,
+        );
+      },
+    );
+  }
+
+  Future<DecodingResult> _load() async {
+    final bytes = await rootBundle.load(asset);
+    return CharsetDetector.autoDecode(bytes.buffer.asUint8List());
+  }
+}
+
+class _LoadedTextCard extends StatelessWidget {
+  const _LoadedTextCard({@required this.title, @required this.content, Key key})
+      : assert(title != null),
+        super(key: key);
+
+  final String title;
+  final FutureOr<String> content;
+
+  @override
+  Widget build(BuildContext context) {
+    return _TitleCard(
+      title: title,
+      child: FutureBuilder<String>(
+        future: Future.value(content),
+        initialData: 'Loading...',
+        builder: (context, snapshot) => Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: const BorderRadius.all(Radius.circular(2)),
+          ),
+          child: Text(snapshot.data?.trim() ?? snapshot.error.toString()),
+        ),
+      ),
+    );
+  }
+}
+
+class _TitleCard extends StatelessWidget {
+  const _TitleCard({@required this.title, @required this.child, Key key})
+      : assert(title != null),
+        assert(child != null),
+        super(key: key);
+
+  final String title;
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            const SizedBox(height: 16),
+            child,
+          ],
         ),
       ),
     );
