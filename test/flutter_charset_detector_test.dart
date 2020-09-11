@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_charset_detector/flutter_charset_detector.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flutter_charset_detector');
@@ -9,7 +11,15 @@ void main() {
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return '42';
+      switch (methodCall.method) {
+        case 'autoDecode':
+          return {
+            'string': utf8.decode(methodCall.arguments['data']),
+            'encoding': utf8.name,
+          };
+        default:
+          throw PlatformException();
+      }
     });
   });
 
@@ -18,6 +28,9 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await FlutterCharsetDetector.platformVersion, '42');
+    final string = 'blah';
+    final result = await CharsetDetector.autoDecode(utf8.encode(string));
+    expect(result.encoding, 'utf-8');
+    expect(result.string, string);
   });
 }
