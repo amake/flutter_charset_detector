@@ -27,22 +27,25 @@ public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
             result(FlutterError(code: "MissingArg", message: "Required argument missing", details: "\(call.method) requires 'data'"))
             return
         }
+        // Elsewhere in the plugin we use the term "charset" instead of
+        // "encoding", but for consistency with iOS APIs we use the term in a
+        // limited capacity here
         guard let encodingName = UniversalDetector.encodingAsString(with: data.data) else {
-            result(FlutterError(code: "DetectionFailed", message: "The encoding could not be detected", details: nil))
+            result(FlutterError(code: "DetectionFailed", message: "The charset could not be detected", details: nil))
             return
         }
         let encoding = CFStringConvertIANACharSetNameToEncoding(encodingName as CFString)
         guard encoding != kCFStringEncodingInvalidId else {
-            result(FlutterError(code: "UnsupportedEncoding", message: "The detected encoding \(encodingName) is not supported.", details: nil))
+            result(FlutterError(code: "UnsupportedCharset", message: "The detected charset \(encodingName) is not supported.", details: nil))
             return
         }
         let nsEncoding = CFStringConvertEncodingToNSStringEncoding(encoding)
         guard let decoded = NSString(data: data.data, encoding: nsEncoding) else {
-            result(FlutterError(code: "DecodingFailed", message: "The data could not be decoded", details: "Detected encoding: \(encodingName)"))
+            result(FlutterError(code: "DecodingFailed", message: "The data could not be decoded", details: "Detected charset: \(encodingName)"))
             return
         }
         result([
-            "encoding": encodingName,
+            "charset": encodingName,
             "string": decoded
         ])
     }

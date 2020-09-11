@@ -16,11 +16,14 @@ class CharsetDetector {
 
 class DecodingResult {
   DecodingResult.fromJson(Map<String, dynamic> json)
-      : this._(json['encoding'] as String, json['string'] as String);
+      : this._(
+          json['charset'] as String,
+          json['string'] as String,
+        );
 
-  DecodingResult._(this.encoding, this.string)
-      : assert(encoding != null),
+  DecodingResult._(this.charset, this.string)
+      : assert(charset != null),
         assert(string != null);
-  final String encoding;
+  final String charset;
   final String string;
 }

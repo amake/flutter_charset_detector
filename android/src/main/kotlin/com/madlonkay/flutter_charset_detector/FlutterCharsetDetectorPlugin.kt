@@ -34,18 +34,18 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
             result.error("MissingArg", "Required argument missing", "${call.method} requires 'data'")
             return
         }
-        val encodingName = data.inputStream().use(UniversalDetector::detectCharset)
-        if (encodingName == null) {
-            result.error("DetectionFailed", "The encoding could not be detected", null)
+        val charsetName = data.inputStream().use(UniversalDetector::detectCharset)
+        if (charsetName == null) {
+            result.error("DetectionFailed", "The charset could not be detected", null)
             return
         }
         val charset: Charset = try {
-            Charset.forName(encodingName)
+            Charset.forName(charsetName)
         } catch (e: Exception) {
             when (e) {
                 is IllegalCharsetNameException,
                 is UnsupportedCharsetException -> {
-                    result.error("UnsupportedEncoding", "The detected encoding $encodingName is not supported.", null)
+                    result.error("UnsupportedCharset", "The detected charset $charsetName is not supported.", null)
                     return
                 }
                 else -> throw e
@@ -54,7 +54,7 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
         val string = charset.decode(ByteBuffer.wrap(data)).toString()
         result.success(
             mapOf(
-                "encoding" to encodingName,
+                "charset" to charsetName,
                 "string" to string,
             )
         )

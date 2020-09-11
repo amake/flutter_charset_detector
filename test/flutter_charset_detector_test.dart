@@ -17,7 +17,7 @@ void main() {
           final args = methodCall.arguments as Map;
           return {
             'string': utf8.decode(args['data'] as Uint8List),
-            'encoding': utf8.name,
+            'charset': utf8.name,
           };
         default:
           throw PlatformException();
@@ -33,7 +33,7 @@ void main() {
     const string = 'blah';
     final bytes = Uint8List.fromList(utf8.encode(string));
     final result = await CharsetDetector.autoDecode(bytes);
-    expect(result.encoding, 'utf-8');
+    expect(result.charset, 'utf-8');
     expect(result.string, string);
   });
 }

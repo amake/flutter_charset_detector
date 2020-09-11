@@ -68,9 +68,9 @@ class _DetectedCharsetCard extends StatelessWidget {
     return FutureBuilder<DecodingResult>(
       future: _load(),
       builder: (context, snapshot) {
-        final encoding = snapshot.data?.encoding ?? '?';
+        final charset = snapshot.data?.charset ?? '?';
         return _LoadedTextCard(
-          title: 'Detected Charset: $encoding',
+          title: 'Detected Charset: $charset',
           content: snapshot.data?.string,
         );
       },
