@@ -1,3 +1,7 @@
+## 0.1.1
+
+* Fleshed out package description
+
 ## 0.1.0
 
 * Rename `DecodingResult.encoding` to `.charset`
