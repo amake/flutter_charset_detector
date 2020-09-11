@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 
 class CharsetDetector {
   static const MethodChannel _channel =
-      const MethodChannel('flutter_charset_detector');
+      MethodChannel('flutter_charset_detector');
 
   static Future<DecodingResult> autoDecode(Uint8List bytes) async {
     final result =
