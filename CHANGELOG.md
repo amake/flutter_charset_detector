@@ -1,3 +1,9 @@
+## 0.1.0
+
+* Rename `DecodingResult.encoding` to `.charset`
+* `DecodingResult.fromJson` constructor is now private
+* Document public APIs
+
 ## 0.0.1
 
 * Initial release
