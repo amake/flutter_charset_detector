@@ -10,12 +10,12 @@ class CharsetDetector {
   static Future<DecodingResult> autoDecode(Uint8List bytes) async {
     final result =
         await _channel.invokeMethod<Map>('autoDecode', {'data': bytes});
-    return DecodingResult.fromJson(result.cast<String, dynamic>());
+    return DecodingResult._fromJson(result.cast<String, dynamic>());
   }
 }
 
 class DecodingResult {
-  DecodingResult.fromJson(Map<String, dynamic> json)
+  DecodingResult._fromJson(Map<String, dynamic> json)
       : this._(
           json['charset'] as String,
           json['string'] as String,
