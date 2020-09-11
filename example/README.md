@@ -8,8 +8,8 @@ The app loads an asset file encoded in
 [Shift-JIS](https://en.wikipedia.org/wiki/Shift_JIS) in three ways from top to
 bottom:
 
-1. Using the default encoding: Flutter's various load mechanisms by default
-   assumes UTF-8, and fails if there are unrepresentable characters
+1. Using the default charset: Flutter's various load mechanisms by default
+   assume UTF-8, and fail if there are unrepresentable characters
 2. Using UTF-8 with "allow malformed": Interpret the bytes as UTF-8 and replace
    any unrepresentable characters with U+FFFD (�)
 3. With auto-detection through `CharsetDetector.autoDecode`: the result includes
