@@ -2,6 +2,10 @@
 
 Automatically detect and decode the charset (character encoding) of text bytes.
 
+<img width="300" src="https://pbs.twimg.com/media/EhnW3CvU4AAz03s?format=png&name=4096x4096">
+
+_The example app; [details](./example/README.md)_
+
 This plugin uses native libraries derived from the universal charset detection
 libraries created by Mozilla.
 
