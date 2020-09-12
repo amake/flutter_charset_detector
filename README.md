@@ -20,6 +20,14 @@ libraries created by Mozilla.
 - Android 4.1 (SDK 16) and higher
 - iOS 9 and higher
 
+## Supported charsets
+
+The detectable charsets differ by platform according to the capabilities of the
+underlying library; for specifics see:
+
+- [iOS](https://gitlab.freedesktop.org/uchardet/uchardet/-/blob/84e292d1b9ef38bfa7914de12d345a48f3136c92/README.md#supported-encodings)
+- [Android](https://github.com/albfernandez/juniversalchardet/blob/v2.3.2/README.md#encodings-that-can-be-detected)
+
 ## Usage
 
 ```dart
