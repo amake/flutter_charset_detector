@@ -1,3 +1,8 @@
+## 0.2.0
+
+* Update iOS detection library
+  * UniversalDetector2 2.0.0 (uchardet 0.0.7)
+
 ## 0.1.1
 
 * Fleshed out package description
