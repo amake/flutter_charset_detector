@@ -9,8 +9,9 @@ _The example app; [details](./example/README.md)_
 This plugin uses native libraries derived from the universal charset detection
 libraries created by Mozilla.
 
-- iOS: [UniversalDetector](https://cocoapods.org/pods/UniversalDetector), a thin
-  wrapper around [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
+- iOS: [UniversalDetector2](https://cocoapods.org/pods/UniversalDetector2), a
+  thin wrapper around
+  [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
 - Android:
   [juniversalchardet](https://github.com/albfernandez/juniversalchardet), a Java
   implementation of universalchardet
@@ -25,7 +26,7 @@ libraries created by Mozilla.
 The detectable charsets differ by platform according to the capabilities of the
 underlying library; for specifics see:
 
-- [iOS](https://gitlab.freedesktop.org/uchardet/uchardet/-/blob/84e292d1b9ef38bfa7914de12d345a48f3136c92/README.md#supported-encodings)
+- [iOS](https://gitlab.freedesktop.org/uchardet/uchardet/-/blob/v0.0.7/README.md#supported-languagesencodings)
 - [Android](https://github.com/albfernandez/juniversalchardet/blob/v2.3.2/README.md#encodings-that-can-be-detected)
 
 ## Usage

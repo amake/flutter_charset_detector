@@ -1,6 +1,6 @@
 import Flutter
 import UIKit
-import UniversalDetector
+import UniversalDetector2
 
 public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
