@@ -29,7 +29,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
+  test('testAutoDecode', () async {
     const string = 'blah';
     final bytes = Uint8List.fromList(utf8.encode(string));
     final result = await CharsetDetector.autoDecode(bytes);
