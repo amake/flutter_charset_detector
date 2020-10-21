@@ -20,7 +20,7 @@ void main() {
             'charset': utf8.name,
           };
         default:
-          throw PlatformException();
+          throw PlatformException(code: 'foo');
       }
     });
   });
