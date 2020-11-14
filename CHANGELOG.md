@@ -1,3 +1,8 @@
+## 0.3.0
+
+* Update Android detection library
+  * juniversalchardet 2.4.0
+
 ## 0.2.0
 
 * Update iOS detection library
