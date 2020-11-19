@@ -10,7 +10,7 @@ class CharsetDetector {
   /// Automatically detect the charset of [bytes] and decode to a string.
   static Future<DecodingResult> autoDecode(Uint8List bytes) async {
     final result =
-        await _channel.invokeMethod<Map>('autoDecode', {'data': bytes});
+        await _channel.invokeMethod<Map>('autoDecode', {'data': bytes}) as Map;
     return DecodingResult._fromJson(result.cast<String, dynamic>());
   }
 }
@@ -23,9 +23,7 @@ class DecodingResult {
           json['string'] as String,
         );
 
-  DecodingResult._(this.charset, this.string)
-      : assert(charset != null),
-        assert(string != null);
+  DecodingResult._(this.charset, this.string);
 
   /// The original charset of [string]
   final String charset;
