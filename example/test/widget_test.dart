@@ -8,7 +8,7 @@ void main() {
 
     expect(
       find.byWidgetPredicate((widget) =>
-          widget is Text && widget.data.startsWith('Default Charset')),
+          widget is Text && widget.data!.startsWith('Default Charset')),
       findsOneWidget,
     );
   });
