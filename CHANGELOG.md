@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Migrate to non-nullable by default
+
 ## 0.3.0
 
 * Update Android detection library
