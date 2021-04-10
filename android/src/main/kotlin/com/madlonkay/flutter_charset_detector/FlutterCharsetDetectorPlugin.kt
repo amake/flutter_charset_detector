@@ -55,7 +55,7 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
         result.success(
             mapOf(
                 "charset" to charsetName,
-                "string" to string,
+                "string" to string
             )
         )
     }
