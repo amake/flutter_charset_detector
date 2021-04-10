@@ -1,3 +1,8 @@
+## 1.0.1
+
+* Fix incompatibility with Kotlin <1.3.70
+  ([#1](https://github.com/amake/flutter_charset_detector/issues/1))
+
 ## 1.0.0
 
 * Migrate to non-nullable by default
