@@ -1,0 +1,1 @@
+flutter_charset_detector/README.md
