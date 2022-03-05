@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Migrate to federated architecture
+
 ## 1.0.1
 
 * Fix incompatibility with Kotlin <1.3.70
