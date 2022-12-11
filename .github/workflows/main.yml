@@ -17,10 +17,8 @@ jobs:
       with:
         channel: 'beta'
     - name: Install dependencies
-      run: for d in flutter_charset_detector*; do (cd $d && flutter pub get); done
+      run: make deps
     - name: Analyze
-      run: flutter analyze
+      run: make analyze
     - name: Run tests
-      run: cd flutter_charset_detector && flutter test
-    - name: Check example
-      run: cd flutter_charset_detector/example && flutter test
+      run: make test
