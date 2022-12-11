@@ -126,7 +126,7 @@ class _TitleCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
             child,

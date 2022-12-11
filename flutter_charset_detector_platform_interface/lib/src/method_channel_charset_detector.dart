@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_charset_detector_platform_interface/decoding_result.dart';
 import 'package:flutter_charset_detector_platform_interface/flutter_charset_detector_platform_interface.dart';
