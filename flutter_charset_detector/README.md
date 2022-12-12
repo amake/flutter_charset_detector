@@ -26,7 +26,7 @@ libraries created by Mozilla.
 The detectable charsets differ by platform according to the capabilities of the
 underlying library; for specifics see:
 
-- [iOS](https://gitlab.freedesktop.org/uchardet/uchardet/-/blob/v0.0.7/README.md#supported-languagesencodings)
+- [iOS](https://gitlab.freedesktop.org/uchardet/uchardet/-/blob/v0.0.8/README.md#supported-languagesencodings)
 - [Android](https://github.com/albfernandez/juniversalchardet/blob/v2.4.0/README.md#encodings-that-can-be-detected)
 
 ## Usage
