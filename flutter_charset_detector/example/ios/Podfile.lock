@@ -2,8 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_charset_detector_ios (0.0.1):
     - Flutter
-    - UniversalDetector2
-  - UniversalDetector2 (2.0.0)
+    - UniversalDetector2 (= 2.0.1)
+  - UniversalDetector2 (2.0.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -21,8 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_charset_detector_ios: abec55ca673f135d99aaaf5beee8e6ebbcb6aae5
-  UniversalDetector2: 8b226f8a7c8a65a6c449848cb664f92fb83cf81b
+  flutter_charset_detector_ios: 5157d0104855b9deb78e1395515a287197bc2d55
+  UniversalDetector2: 7c9ffd935cf050eeb19edf7e90f6febe3743a1af
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
