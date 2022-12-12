@@ -1,6 +1,6 @@
 name: flutter_charset_detector_ios
 description: iOS implementation of the flutter_charset_detector plugin.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/amake/flutter_charset_detector
 
 environment:
