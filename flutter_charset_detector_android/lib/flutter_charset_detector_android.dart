@@ -14,8 +14,8 @@ class CharsetDetectorAndroid extends CharsetDetectorPlatform {
   /// Automatically detect the charset of [bytes] and decode to a string.
   @override
   Future<DecodingResult> autoDecode(Uint8List bytes) async {
-    final result =
-        await _channel.invokeMethod<Map>('autoDecode', {'data': bytes}) as Map;
-    return DecodingResult.fromJson(result.cast<String, dynamic>());
+    final result = await _channel
+        .invokeMethod<Map<String, dynamic>>('autoDecode', {'data': bytes});
+    return DecodingResult.fromJson(result!);
   }
 }
