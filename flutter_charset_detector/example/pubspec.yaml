@@ -4,7 +4,7 @@ description: Demonstrates how to use the flutter_charset_detector plugin.
 publish_to: 'none'
 
 environment:
-  sdk: '>=2.12.0-259.9.beta <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
