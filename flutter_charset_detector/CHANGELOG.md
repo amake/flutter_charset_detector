@@ -1,3 +1,6 @@
+## 2.0.0
+* Drop older Android Gradle Plugin support
+
 ## 1.0.2
 
 * Migrate to federated architecture
