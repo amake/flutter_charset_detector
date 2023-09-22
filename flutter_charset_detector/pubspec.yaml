@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_charset_detector_android: ^1.0.0
+  flutter_charset_detector_android: ^2.0.0
   # flutter_charset_detector_android:
   #   path: ../flutter_charset_detector_android
   flutter_charset_detector_ios: ^1.0.0
