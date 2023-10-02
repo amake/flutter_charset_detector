@@ -12,7 +12,7 @@ class MethodChannelCharsetDetector extends CharsetDetectorPlatform {
   @override
   Future<DecodingResult> autoDecode(Uint8List bytes) async {
     final result = await _channel
-        .invokeMethod<Map<String, dynamic>>('autoDecode', {'data': bytes});
-    return DecodingResult.fromJson(result!);
+        .invokeMethod<Map<dynamic, dynamic>>('autoDecode', {'data': bytes});
+    return DecodingResult.fromJson(result!.cast());
   }
 }
