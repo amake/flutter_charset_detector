@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_charset_detector_platform_interface/decoding_result.dart';
 import 'package:flutter_charset_detector_platform_interface/flutter_charset_detector_platform_interface.dart';
 import 'package:flutter_charset_detector_web/js_charset_detector.dart'
-    as js_charset;
+    as jschardet;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 class CharsetDetectorWeb extends CharsetDetectorPlatform {
   CharsetDetectorWeb() {
     if (kDebugMode) {
-      js_charset.enableDebug();
+      jschardet.enableDebug();
     }
   }
 
@@ -20,7 +20,7 @@ class CharsetDetectorWeb extends CharsetDetectorPlatform {
   @override
   Future<DecodingResult> autoDecode(Uint8List bytes) async {
     String text = String.fromCharCodes(bytes);
-    final detectedMap = js_charset.detect(text, null);
+    final detectedMap = jschardet.detect(text, null);
     debugPrint(
         'Detected result: encoding=${detectedMap.encoding}; confidence=${detectedMap.confidence}');
     return DecodingResult.fromJson({
