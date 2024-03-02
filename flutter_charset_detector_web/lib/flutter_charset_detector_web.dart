@@ -3,6 +3,7 @@ import 'package:flutter_charset_detector_platform_interface/decoding_result.dart
 import 'package:flutter_charset_detector_platform_interface/flutter_charset_detector_platform_interface.dart';
 import 'package:flutter_charset_detector_web/js_charset_detector.dart'
     as jschardet;
+import 'package:flutter_charset_detector_web/js_textdecoder.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 class CharsetDetectorWeb extends CharsetDetectorPlatform {
@@ -19,13 +20,18 @@ class CharsetDetectorWeb extends CharsetDetectorPlatform {
   /// Automatically detect the charset of [bytes] and decode to a string.
   @override
   Future<DecodingResult> autoDecode(Uint8List bytes) async {
-    String text = String.fromCharCodes(bytes);
-    final detectedMap = jschardet.detect(text, null);
+    final byteString = String.fromCharCodes(bytes);
+    final detectedMap = jschardet.detect(byteString, null);
+    final decoder = TextDecoder(detectedMap.encoding);
     debugPrint(
-        'Detected result: encoding=${detectedMap.encoding}; confidence=${detectedMap.confidence}');
+      'Detected result; '
+      'encoding: ${detectedMap.encoding} (normalized to: ${decoder.encoding}), '
+      'confidence: ${detectedMap.confidence}',
+    );
+    final decodedString = decoder.decode(bytes);
     return DecodingResult.fromJson({
-      'charset': detectedMap.encoding,
-      'string': text,
+      'charset': decoder.encoding,
+      'string': decodedString,
     });
   }
 }
