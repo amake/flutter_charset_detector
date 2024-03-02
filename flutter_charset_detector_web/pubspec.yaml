@@ -23,3 +23,9 @@ dev_dependencies:
 flutter:
   assets:
     - packages/flutter_charset_detector_web/assets/web/jschardet.min.js
+  plugin:
+    implements: flutter_charset_detector
+    platforms:
+      web:
+        pluginClass: CharsetDetectorWeb
+        fileName: flutter_charset_detector_web.dart
