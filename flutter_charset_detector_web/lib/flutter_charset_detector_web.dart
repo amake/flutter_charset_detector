@@ -21,6 +21,8 @@ class CharsetDetectorWeb extends CharsetDetectorPlatform {
   Future<DecodingResult> autoDecode(Uint8List bytes) async {
     String text = String.fromCharCodes(bytes);
     final detectedMap = js_charset.detect(text, null);
+    debugPrint(
+        'Detected result: encoding=${detectedMap.encoding}; confidence=${detectedMap.confidence}');
     return DecodingResult.fromJson({
       'charset': detectedMap.encoding,
       'string': text,
