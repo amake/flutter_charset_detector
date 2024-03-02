@@ -4,7 +4,8 @@ The Web implementation of [`flutter_charset_detector`][1].
 
 ## Usage
 
-To make it work properly on the Web platform, you need to add the `jschardet.min.js` file inside the <head> of your `web/index.html` file:
+To make it work properly on the Web platform, you need to add the
+`jschardet.min.js` file inside the <head> of your `web/index.html` file:
 
 ```html
 <head>
