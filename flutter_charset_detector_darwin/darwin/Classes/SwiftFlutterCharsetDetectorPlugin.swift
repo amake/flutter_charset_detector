@@ -1,10 +1,18 @@
-import Flutter
-import UIKit
+#if os(iOS)
+    import Flutter
+#elseif os(macOS)
+    import FlutterMacOS
+#endif
 import UniversalDetector2
 
 public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "flutter_charset_detector", binaryMessenger: registrar.messenger())
+        #if os(iOS)
+            let messenger = registrar.messenger()
+        #else
+            let messenger = registrar.messenger
+        #endif
+        let channel = FlutterMethodChannel(name: "flutter_charset_detector", binaryMessenger: messenger)
         let instance = SwiftFlutterCharsetDetectorPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }

@@ -1,6 +1,6 @@
-# flutter\_charset\_detector\_ios
+# flutter\_charset\_detector\_darwin
 
-The iOS implementation of [`flutter_charset_detector`][1].
+The Darwin (iOS+macOS) implementation of [`flutter_charset_detector`][1].
 
 ## Usage
 
