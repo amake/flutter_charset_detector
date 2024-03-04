@@ -10,7 +10,7 @@ void main() => runApp(const MyApp());
 const _kAssetName = 'assets/sjis-example.txt';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 }
 
 class _DefaultCharsetCard extends StatelessWidget {
-  const _DefaultCharsetCard(this.asset, {Key? key}) : super(key: key);
+  const _DefaultCharsetCard(this.asset);
   final String asset;
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _DefaultCharsetCard extends StatelessWidget {
 }
 
 class _DefaultCharsetReplacingCard extends StatelessWidget {
-  const _DefaultCharsetReplacingCard(this.asset, {Key? key}) : super(key: key);
+  const _DefaultCharsetReplacingCard(this.asset);
   final String asset;
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _DefaultCharsetReplacingCard extends StatelessWidget {
 }
 
 class _DetectedCharsetCard extends StatelessWidget {
-  const _DetectedCharsetCard(this.asset, {Key? key}) : super(key: key);
+  const _DetectedCharsetCard(this.asset);
   final String asset;
   @override
   Widget build(BuildContext context) {
@@ -84,8 +84,7 @@ class _DetectedCharsetCard extends StatelessWidget {
 }
 
 class _LoadedTextCard extends StatelessWidget {
-  const _LoadedTextCard({required this.title, required this.content, Key? key})
-      : super(key: key);
+  const _LoadedTextCard({required this.title, required this.content});
 
   final String title;
   final FutureOr<String>? content;
@@ -111,8 +110,7 @@ class _LoadedTextCard extends StatelessWidget {
 }
 
 class _TitleCard extends StatelessWidget {
-  const _TitleCard({required this.title, required this.child, Key? key})
-      : super(key: key);
+  const _TitleCard({required this.title, required this.child});
 
   final String title;
   final Widget child;
