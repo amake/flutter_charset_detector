@@ -81,10 +81,11 @@ packages:
   flutter_charset_detector_web:
     dependency: "direct main"
     description:
-      path: "../flutter_charset_detector_web"
-      relative: true
-    source: path
-    version: "1.0.1"
+      name: flutter_charset_detector_web
+      sha256: d8495115abada771c75f9395aae3e5809ffd506e8fc8f62b403ae11fc29e1d2b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   flutter_lints:
     dependency: "direct dev"
     description:

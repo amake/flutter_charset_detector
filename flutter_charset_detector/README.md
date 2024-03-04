@@ -15,11 +15,14 @@ libraries created by Mozilla.
 - Android:
   [juniversalchardet](https://github.com/albfernandez/juniversalchardet), a Java
   implementation of universalchardet
+- Web: [jschardet](https://github.com/aadsm/jschardet), a JavaScript port of the
+  Python [chardet](https://github.com/chardet/chardet)
 
 ## Supported platforms
 
 - Android 4.1 (SDK 16) and higher
 - iOS 9 and higher
+- Web (requires [TextDecoder](https://caniuse.com/textencoder) support)
 
 ## Supported charsets
 
@@ -28,6 +31,7 @@ underlying library; for specifics see:
 
 - [iOS](https://gitlab.freedesktop.org/uchardet/uchardet/-/blob/v0.0.8/README.md#supported-languagesencodings)
 - [Android](https://github.com/albfernandez/juniversalchardet/blob/v2.4.0/README.md#encodings-that-can-be-detected)
+- [Web](https://github.com/aadsm/jschardet/blob/v3.0.0/README.md#supported-charsets)
 
 ## Usage
 

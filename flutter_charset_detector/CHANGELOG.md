@@ -1,3 +1,6 @@
+## 2.1.0
+* Add web implementation
+
 ## 2.0.0
 * Drop older Android Gradle Plugin support
 
