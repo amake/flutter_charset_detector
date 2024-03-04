@@ -1,13 +1,14 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_charset_detector_ios (0.0.1):
+  - flutter_charset_detector_darwin (0.0.1):
     - Flutter
+    - FlutterMacOS
     - UniversalDetector2 (= 2.0.1)
   - UniversalDetector2 (2.0.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - flutter_charset_detector_ios (from `.symlinks/plugins/flutter_charset_detector_ios/ios`)
+  - flutter_charset_detector_darwin (from `.symlinks/plugins/flutter_charset_detector_darwin/darwin`)
 
 SPEC REPOS:
   trunk:
@@ -16,14 +17,14 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  flutter_charset_detector_ios:
-    :path: ".symlinks/plugins/flutter_charset_detector_ios/ios"
+  flutter_charset_detector_darwin:
+    :path: ".symlinks/plugins/flutter_charset_detector_darwin/darwin"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_charset_detector_ios: 5157d0104855b9deb78e1395515a287197bc2d55
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_charset_detector_darwin: fb3692d6d72cb6afcce7b0dd1a9516be6e78556e
   UniversalDetector2: 7c9ffd935cf050eeb19edf7e90f6febe3743a1af
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: c4c93c5f6502fe2754f48404d3594bf779584011
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.14.3
