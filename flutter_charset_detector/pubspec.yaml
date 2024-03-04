@@ -13,9 +13,9 @@ dependencies:
   flutter_charset_detector_android: ^2.0.0
   # flutter_charset_detector_android:
   #   path: ../flutter_charset_detector_android
-  flutter_charset_detector_ios: ^1.0.0
-  # flutter_charset_detector_ios:
-  #   path: ../flutter_charset_detector_ios
+  flutter_charset_detector_darwin: ^1.0.0
+  # flutter_charset_detector_darwin:
+    # path: ../flutter_charset_detector_darwin
   flutter_charset_detector_web: ^1.0.2
   # flutter_charset_detector_web:
   #   path: ../flutter_charset_detector_web
@@ -35,6 +35,8 @@ flutter:
       android:
         default_package: flutter_charset_detector_android
       ios:
-        default_package: flutter_charset_detector_ios
+        default_package: flutter_charset_detector_darwin
+      macos:
+        default_package: flutter_charset_detector_darwin
       web:
         default_package: flutter_charset_detector_web
