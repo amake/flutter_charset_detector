@@ -1,3 +1,7 @@
+## 3.0.0
+* Add macOS implementation
+* iOS implementation now requires iOS 11+
+
 ## 2.1.0
 * Add web implementation
 
