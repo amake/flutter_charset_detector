@@ -69,14 +69,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  flutter_charset_detector_ios:
+  flutter_charset_detector_darwin:
     dependency: transitive
     description:
-      name: flutter_charset_detector_ios
-      sha256: e0e2c7b819cd1f7c9a50da94bf7f0e6d7a095eb64e81196ec758e77793903d43
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
+      path: "../../flutter_charset_detector_darwin"
+      relative: true
+    source: path
+    version: "1.0.0"
   flutter_charset_detector_platform_interface:
     dependency: transitive
     description:
