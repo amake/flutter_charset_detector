@@ -1,5 +1,5 @@
 do_all_projects = for p in flutter_charset_detector*; do (cd $$p && $(1)); done
-jschardet_version := v3.0.0
+jschardet_version := v3.1.0
 jschardet_url := https://raw.githubusercontent.com/aadsm/jschardet/$(jschardet_version)/dist/jschardet.min.js
 jschardet := flutter_charset_detector_web/lib/assets/web/jschardet.min.js
 
