@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Bump jschardet to 3.1.0
+
 ## 1.0.3
 
 * Use `js` version 0.7.1
