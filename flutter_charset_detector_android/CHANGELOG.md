@@ -1,3 +1,8 @@
+## 2.1.0
+
+* Add `detect` method to obtain the detected charset without decoding the
+  supplied bytes
+
 ## 2.0.1
 * Fix type cast error introduced in 2.0.0
 
