@@ -34,4 +34,12 @@ class CharsetDetectorWeb extends CharsetDetectorPlatform {
       'string': decodedString,
     });
   }
+
+  /// Detect and return the charset of [bytes].
+  @override
+  Future<String> detect(Uint8List bytes) async {
+    final byteString = String.fromCharCodes(bytes);
+    final detectedMap = jschardet.detect(byteString, null);
+    return detectedMap.encoding;
+  }
 }

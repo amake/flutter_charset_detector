@@ -18,4 +18,9 @@ class CharsetDetectorAndroid extends CharsetDetectorPlatform {
         .invokeMethod<Map<dynamic, dynamic>>('autoDecode', {'data': bytes});
     return DecodingResult.fromJson(result!.cast());
   }
+
+  /// Detect and return the charset of [bytes].
+  Future<String> detect(Uint8List bytes) async {
+    return (await _channel.invokeMethod<String>('detect', {'data': bytes}))!;
+  }
 }

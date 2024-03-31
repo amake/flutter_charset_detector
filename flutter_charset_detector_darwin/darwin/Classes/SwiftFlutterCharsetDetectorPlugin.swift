@@ -21,6 +21,8 @@ public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
         switch call.method {
         case "autoDecode":
             handleAutoDecode(call, result)
+        case "detect":
+            handleDetect(call, result)
         default:
             result(FlutterError(code: "UnsupportedMethod", message: "\(call.method) is not supported", details: nil))
         }
@@ -56,5 +58,24 @@ public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
             "charset": encodingName,
             "string": decoded
         ])
+    }
+
+    func handleDetect(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String:Any?] else {
+            result(FlutterError(code: "MissingArgs", message: "Required arguments missing", details: "\(call.method) requires 'data'"))
+            return
+        }
+        guard let data = args["data"] as? FlutterStandardTypedData else {
+            result(FlutterError(code: "MissingArg", message: "Required argument missing", details: "\(call.method) requires 'data'"))
+            return
+        }
+        // Elsewhere in the plugin we use the term "charset" instead of
+        // "encoding", but for consistency with iOS APIs we use the term in a
+        // limited capacity here
+        guard let encodingName = UniversalDetector.encodingAsString(with: data.data) else {
+            result(FlutterError(code: "DetectionFailed", message: "The charset could not be detected", details: nil))
+            return
+        }
+        result(encodingName);
     }
 }

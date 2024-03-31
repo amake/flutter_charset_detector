@@ -24,6 +24,7 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
             "autoDecode" -> handleAutoDecode(call, result)
+            "detect" -> handleDetect(call, reesult)
             else -> result.notImplemented()
         }
     }
@@ -58,6 +59,20 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
                 "string" to string
             )
         )
+    }
+
+    private fun handleDetect(call: MethodCall, result: Result) {
+        val data = call.argument<ByteArray>("data")
+        if (data == null) {
+            result.error("MissingArg", "Required argument missing", "${call.method} requires 'data'")
+            return
+        }
+        val charsetName = data.inputStream().use(UniversalDetector::detectCharset)
+        if (charsetName == null) {
+            result.error("DetectionFailed", "The charset could not be detected", null)
+            return
+        }
+        return charsetName
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

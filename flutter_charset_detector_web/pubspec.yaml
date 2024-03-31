@@ -12,7 +12,9 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  flutter_charset_detector_platform_interface: ^1.0.0
+  flutter_charset_detector_platform_interface: ^1.1.0
+  # flutter_charset_detector_platform_interface:
+    # path: ../flutter_charset_detector_platform_interface
   js: ^0.7.1
 
 dev_dependencies:
