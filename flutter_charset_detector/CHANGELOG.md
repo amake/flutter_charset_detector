@@ -1,11 +1,19 @@
+## 3.1.0
+
+* Add `detect` method to obtain the detected charset without decoding the
+  supplied bytes
+
 ## 3.0.0
+
 * Add macOS implementation
 * iOS implementation now requires iOS 11+
 
 ## 2.1.0
+
 * Add web implementation
 
 ## 2.0.0
+
 * Drop older Android Gradle Plugin support
 
 ## 1.0.2
