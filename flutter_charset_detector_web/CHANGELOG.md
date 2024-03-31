@@ -1,3 +1,8 @@
+## 1.2.0
+
+* Add `detect` method to obtain the detected charset without decoding the
+  supplied bytes
+
 ## 1.1.0
 
 * Bump jschardet to 3.1.0
