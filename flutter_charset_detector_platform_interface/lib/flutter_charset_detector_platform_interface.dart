@@ -29,4 +29,8 @@ abstract class CharsetDetectorPlatform extends PlatformInterface {
   /// Automatically detect the charset of [bytes] and decode to a string.
   Future<DecodingResult> autoDecode(Uint8List bytes) =>
       throw UnimplementedError('autoDecode() has not been implemented.');
+
+  /// Detect and return the charset of [bytes].
+  Future<String> detect(Uint8List bytes) =>
+      throw UnimplementedError('detect() has not been implemented.');
 }
