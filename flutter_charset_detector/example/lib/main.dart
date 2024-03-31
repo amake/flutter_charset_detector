@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
             _DefaultCharsetCard(_kAssetName),
             _DefaultCharsetReplacingCard(_kAssetName),
             _DetectedCharsetCard(_kAssetName),
+            _DetectedOnlyCharsetCard(_kAssetName),
           ],
         ),
       ),
@@ -80,6 +81,29 @@ class _DetectedCharsetCard extends StatelessWidget {
   Future<DecodingResult> _load() async {
     final bytes = await rootBundle.load(asset);
     return CharsetDetector.autoDecode(bytes.buffer.asUint8List());
+  }
+}
+
+class _DetectedOnlyCharsetCard extends StatelessWidget {
+  const _DetectedOnlyCharsetCard(this.asset);
+  final String asset;
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<String>(
+      future: _load(),
+      builder: (context, snapshot) {
+        final charset = snapshot.data ?? '?';
+        return _LoadedTextCard(
+          title: 'Detection only: $charset',
+          content: null,
+        );
+      },
+    );
+  }
+
+  Future<String> _load() async {
+    final bytes = await rootBundle.load(asset);
+    return CharsetDetector.detect(bytes.buffer.asUint8List());
   }
 }
 

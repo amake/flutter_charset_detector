@@ -10,16 +10,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_charset_detector_android: ^2.0.0
+  flutter_charset_detector_android: ^2.1.1
   # flutter_charset_detector_android:
   #   path: ../flutter_charset_detector_android
-  flutter_charset_detector_darwin: ^1.0.0
+  flutter_charset_detector_darwin: ^1.1.0
   # flutter_charset_detector_darwin:
   #   path: ../flutter_charset_detector_darwin
-  flutter_charset_detector_web: ^1.0.2
+  flutter_charset_detector_web: ^1.2.0
   # flutter_charset_detector_web:
   #   path: ../flutter_charset_detector_web
-  flutter_charset_detector_platform_interface: ^1.0.0
+  flutter_charset_detector_platform_interface: ^1.1.0
   # flutter_charset_detector_platform_interface:
   #   path: ../flutter_charset_detector_platform_interface
 
