@@ -24,7 +24,7 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
             "autoDecode" -> handleAutoDecode(call, result)
-            "detect" -> handleDetect(call, reesult)
+            "detect" -> handleDetect(call, result)
             else -> result.notImplemented()
         }
     }
@@ -72,7 +72,7 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
             result.error("DetectionFailed", "The charset could not be detected", null)
             return
         }
-        return charsetName
+        result.success(charsetName)
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
