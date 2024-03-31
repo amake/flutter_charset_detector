@@ -20,6 +20,7 @@ class CharsetDetectorAndroid extends CharsetDetectorPlatform {
   }
 
   /// Detect and return the charset of [bytes].
+  @override
   Future<String> detect(Uint8List bytes) async {
     return (await _channel.invokeMethod<String>('detect', {'data': bytes}))!;
   }
