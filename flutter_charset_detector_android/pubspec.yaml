@@ -1,6 +1,6 @@
 name: flutter_charset_detector_android
 description: Android implementation of the flutter_charset_detector plugin.
-version: 2.1.1
+version: 3.0.0
 homepage: https://github.com/amake/flutter_charset_detector
 
 environment:
