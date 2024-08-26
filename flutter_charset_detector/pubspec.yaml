@@ -1,6 +1,6 @@
 name: flutter_charset_detector
 description: Detect and decode the charset (character encoding) of text bytes
-version: 3.1.0
+version: 4.0.0
 homepage: https://github.com/amake/flutter_charset_detector
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_charset_detector_android: ^2.1.1
+  flutter_charset_detector_android: ^3.0.0
   # flutter_charset_detector_android:
   #   path: ../flutter_charset_detector_android
   flutter_charset_detector_darwin: ^1.1.0
