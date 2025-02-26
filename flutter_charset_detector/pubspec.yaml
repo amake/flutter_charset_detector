@@ -16,7 +16,7 @@ dependencies:
   flutter_charset_detector_darwin: ^1.1.0
   # flutter_charset_detector_darwin:
   #   path: ../flutter_charset_detector_darwin
-  flutter_charset_detector_web: ^1.2.0
+  flutter_charset_detector_web: ^2.0.0
   # flutter_charset_detector_web:
   #   path: ../flutter_charset_detector_web
   flutter_charset_detector_platform_interface: ^1.1.0
