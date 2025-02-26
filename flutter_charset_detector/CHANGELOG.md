@@ -1,4 +1,9 @@
+## 5.0.0
+
+* Web implementation now requires Dart 3.3+
+
 ## 4.0.0
+
 * Android implementation now requires SDK 21
 
 ## 3.1.0
