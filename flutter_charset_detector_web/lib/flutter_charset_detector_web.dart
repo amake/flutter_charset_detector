@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_charset_detector_platform_interface/decoding_result.dart';
 import 'package:flutter_charset_detector_platform_interface/flutter_charset_detector_platform_interface.dart';
@@ -21,14 +23,14 @@ class CharsetDetectorWeb extends CharsetDetectorPlatform {
   @override
   Future<DecodingResult> autoDecode(Uint8List bytes) async {
     final byteString = String.fromCharCodes(bytes);
-    final detectedMap = jschardet.detect(byteString, null);
+    final detectedMap = jschardet.detect(byteString.toJS, null);
     final decoder = TextDecoder(detectedMap.encoding);
     debugPrint(
       'Detected result; '
       'encoding: ${detectedMap.encoding} (normalized to: ${decoder.encoding}), '
       'confidence: ${detectedMap.confidence}',
     );
-    final decodedString = decoder.decode(bytes);
+    final decodedString = decoder.decode(bytes.toJS);
     return DecodingResult.fromJson({
       'charset': decoder.encoding,
       'string': decodedString,
@@ -39,7 +41,7 @@ class CharsetDetectorWeb extends CharsetDetectorPlatform {
   @override
   Future<String> detect(Uint8List bytes) async {
     final byteString = String.fromCharCodes(bytes);
-    final detectedMap = jschardet.detect(byteString, null);
+    final detectedMap = jschardet.detect(byteString.toJS, null);
     return detectedMap.encoding;
   }
 }

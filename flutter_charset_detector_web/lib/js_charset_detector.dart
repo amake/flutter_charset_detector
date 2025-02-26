@@ -1,30 +1,26 @@
 @JS()
 library js_charset_detector;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 
 @JS('jschardet.detect')
-external DetectedMap detect(dynamic data, OptionsMap? options);
+external DetectedMap detect(JSAny data, OptionsMap? options);
 
 @JS('jschardet.detectAll')
-external List<DetectedMap> detectAll(dynamic data, OptionsMap? options);
+external JSArray<DetectedMap> detectAll(JSAny data, OptionsMap? options);
 
 @JS('jschardet.enableDebug')
 external void enableDebug();
 
-@JS()
-@anonymous
-class DetectedMap {
+extension type DetectedMap._(JSObject o) implements JSObject {
+  external DetectedMap({String encoding, num confidence});
   external String get encoding;
   external num get confidence;
-  external factory DetectedMap({String encoding, num confidence});
 }
 
-@JS()
-@anonymous
-class OptionsMap {
+extension type OptionsMap._(JSObject o) implements JSObject {
+  external OptionsMap(
+      {num? minimumThreshold, JSArray<JSString>? detectEncodings});
   external num? get minimumThreshold;
-  external List<String>? get detectEncodings;
-  external factory OptionsMap(
-      {num? minimumThreshold, List<String>? detectEncodings});
+  external JSArray<JSString>? get detectEncodings;
 }
