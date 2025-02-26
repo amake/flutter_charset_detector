@@ -1,8 +1,8 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_charset_detector_web/flutter_charset_detector_web.dart';
 
@@ -32,6 +32,8 @@ class _MyAppState extends State<MyApp> {
     try {
       final decodingResult = await _charsetDetectorWeb.autoDecode(bytes);
       fileCharset = decodingResult.charset;
+      final detectResult = await _charsetDetectorWeb.detect(bytes);
+      debugPrint('detectResult: $detectResult');
     } on PlatformException {
       fileCharset = 'Failed to get charset.';
     }
