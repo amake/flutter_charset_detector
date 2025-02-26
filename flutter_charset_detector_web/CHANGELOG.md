@@ -1,3 +1,8 @@
+## 2.0.0
+
+* Switch from `js` to `dart:js_interop`
+* Require Dart 3.3+
+
 ## 1.2.0
 
 * Add `detect` method to obtain the detected charset without decoding the
