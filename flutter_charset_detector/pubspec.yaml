@@ -40,3 +40,10 @@ flutter:
         default_package: flutter_charset_detector_darwin
       web:
         default_package: flutter_charset_detector_web
+
+topics:
+  - text
+  - encoding
+  - charset
+  - detection
+  - flutter
