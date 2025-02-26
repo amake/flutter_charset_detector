@@ -1,6 +1,3 @@
-@JS()
-library js_textdecoder;
-
 import 'dart:js_interop';
 
 extension type TextDecoder._(JSObject o) implements JSObject {

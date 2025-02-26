@@ -1,6 +1,3 @@
-@JS()
-library js_charset_detector;
-
 import 'dart:js_interop';
 
 @JS('jschardet.detect')
