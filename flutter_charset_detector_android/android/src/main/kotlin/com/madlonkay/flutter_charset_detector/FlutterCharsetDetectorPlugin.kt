@@ -1,5 +1,7 @@
 package com.madlonkay.flutter_charset_detector
 
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -35,30 +37,38 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
             result.error("MissingArg", "Required argument missing", "${call.method} requires 'data'")
             return
         }
-        val charsetName = data.inputStream().use(UniversalDetector::detectCharset)
-        if (charsetName == null) {
-            result.error("DetectionFailed", "The charset could not be detected", null)
-            return
-        }
-        val charset: Charset = try {
-            Charset.forName(charsetName)
-        } catch (e: Exception) {
-            when (e) {
-                is IllegalCharsetNameException,
-                is UnsupportedCharsetException -> {
-                    result.error("UnsupportedCharset", "The detected charset $charsetName is not supported.", null)
-                    return
+
+        Thread {
+            try {
+                val charsetName = data.inputStream().use(UniversalDetector::detectCharset)
+                if (charsetName == null) {
+                    Handler(Looper.getMainLooper()).post {
+                        result.error("DetectionFailed", "The charset could not be detected", null)
+                    }
+                    return@Thread
                 }
-                else -> throw e
+
+                val charset: Charset = try {
+                    Charset.forName(charsetName)
+                } catch (e: Exception) {
+                    if (e is IllegalCharsetNameException || e is UnsupportedCharsetException) {
+                        Handler(Looper.getMainLooper()).post {
+                            result.error("UnsupportedCharset", "The detected charset $charsetName is not supported.", null)
+                        }
+                        return@Thread
+                    } else throw e
+                }
+
+                val string = charset.decode(ByteBuffer.wrap(data)).toString()
+                Handler(Looper.getMainLooper()).post {
+                    result.success(mapOf("charset" to charsetName, "string" to string))
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    result.error("Exception", e.message, null)
+                }
             }
-        }
-        val string = charset.decode(ByteBuffer.wrap(data)).toString()
-        result.success(
-            mapOf(
-                "charset" to charsetName,
-                "string" to string
-            )
-        )
+        }.start()
     }
 
     private fun handleDetect(call: MethodCall, result: Result) {
@@ -67,12 +77,23 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
             result.error("MissingArg", "Required argument missing", "${call.method} requires 'data'")
             return
         }
-        val charsetName = data.inputStream().use(UniversalDetector::detectCharset)
-        if (charsetName == null) {
-            result.error("DetectionFailed", "The charset could not be detected", null)
-            return
-        }
-        result.success(charsetName)
+
+        Thread {
+            try {
+                val charsetName = data.inputStream().use(UniversalDetector::detectCharset)
+                Handler(Looper.getMainLooper()).post {
+                    if (charsetName == null) {
+                        result.error("DetectionFailed", "The charset could not be detected", null)
+                    } else {
+                        result.success(charsetName)
+                    }
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    result.error("Exception", e.message, null)
+                }
+            }
+        }.start()
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
