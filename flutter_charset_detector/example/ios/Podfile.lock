@@ -22,9 +22,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_charset_detector_darwin: fb3692d6d72cb6afcce7b0dd1a9516be6e78556e
+  flutter_charset_detector_darwin: 14f055ebeed6896144cc96b046749df51127a0a3
   UniversalDetector2: 7c9ffd935cf050eeb19edf7e90f6febe3743a1af
 
 PODFILE CHECKSUM: c4c93c5f6502fe2754f48404d3594bf779584011
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.16.2
