@@ -1,3 +1,6 @@
+## 1.2.0
+* Move as much processing as possible off the main (UI) thread
+
 ## 1.1.0
 
 * Add `detect` method to obtain the detected charset without decoding the
