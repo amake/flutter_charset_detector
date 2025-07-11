@@ -12,19 +12,25 @@ public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
         #else
             let messenger = registrar.messenger
         #endif
-        let channel = FlutterMethodChannel(name: "flutter_charset_detector", binaryMessenger: messenger)
+        let taskQueue = registrar.messenger().makeBackgroundTaskQueue?()
+        let channel = FlutterMethodChannel(name: "flutter_charset_detector", binaryMessenger: messenger, codec: FlutterStandardMethodCodec.sharedInstance(), taskQueue: taskQueue)
         let instance = SwiftFlutterCharsetDetectorPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        switch call.method {
-        case "autoDecode":
-            handleAutoDecode(call, result)
-        case "detect":
-            handleDetect(call, result)
-        default:
-            result(FlutterError(code: "UnsupportedMethod", message: "\(call.method) is not supported", details: nil))
+        let result = { (val: Any?) in
+            DispatchQueue.main.async { result(val) }
+        }
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            switch call.method {
+            case "autoDecode":
+                handleAutoDecode(call, result)
+            case "detect":
+                handleDetect(call, result)
+            default:
+                result(FlutterError(code: "UnsupportedMethod", message: "\(call.method) is not supported", details: nil))
+            }
         }
     }
 

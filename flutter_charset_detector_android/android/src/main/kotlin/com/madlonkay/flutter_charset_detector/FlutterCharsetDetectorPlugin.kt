@@ -1,31 +1,49 @@
 package com.madlonkay.flutter_charset_detector
 
-import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.StandardMethodCodec
 import org.mozilla.universalchardet.UniversalDetector
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
 import java.nio.charset.IllegalCharsetNameException
 import java.nio.charset.UnsupportedCharsetException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 /** FlutterCharsetDetectorPlugin */
-class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
+class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler, CoroutineScope by MainScope() {
     private lateinit var channel: MethodChannel
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_charset_detector")
+    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        val taskQueue = flutterPluginBinding.binaryMessenger.makeBackgroundTaskQueue()
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_charset_detector", StandardMethodCodec.INSTANCE, taskQueue)
         channel.setMethodCallHandler(this)
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-        when (call.method) {
-            "autoDecode" -> handleAutoDecode(call, result)
-            "detect" -> handleDetect(call, result)
-            else -> result.notImplemented()
+    override fun onMethodCall(call: MethodCall, result: Result) {
+        val mainThreadResult = object : Result {
+            override fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) {
+                launch(Dispatchers.Main) { result.error(errorCode, errorMessage, errorDetails) }
+            }
+            override fun success(resultArg: Any?) {
+                launch(Dispatchers.Main) { result.success(resultArg) }
+            }
+            override fun notImplemented() {
+                launch(Dispatchers.Main) { result.notImplemented() }
+            }
+        }
+        launch(Dispatchers.Default) {
+            when (call.method) {
+                "autoDecode" -> handleAutoDecode(call, mainThreadResult)
+                "detect" -> handleDetect(call, mainThreadResult)
+                else -> mainThreadResult.notImplemented()
+            }
         }
     }
 
@@ -75,7 +93,7 @@ class FlutterCharsetDetectorPlugin : FlutterPlugin, MethodCallHandler {
         result.success(charsetName)
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
 }
