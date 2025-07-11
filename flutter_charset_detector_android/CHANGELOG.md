@@ -1,3 +1,6 @@
+## 3.1.0
+* Move as much processing as possible off the main (UI) thread
+
 ## 3.0.0
 * Bump juniversalchardet to 2.5.0
 * Bump Kotlin to 1.7.10
