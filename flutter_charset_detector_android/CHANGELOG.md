@@ -1,5 +1,11 @@
+## 3.1.1
+* Bump Kotlin to 2.2.0
+* Remove unneeded dependency
+
 ## 3.1.0
 * Move as much processing as possible off the main (UI) thread
+* Bump Kotlin to 2.1.0
+* Bump compileSdk to 35
 
 ## 3.0.0
 * Bump juniversalchardet to 2.5.0
