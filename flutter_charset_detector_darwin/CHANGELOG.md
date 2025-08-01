@@ -1,3 +1,6 @@
+## 1.2.1
+* Fix build on macOS
+
 ## 1.2.0
 * Move as much processing as possible off the main (UI) thread
 
