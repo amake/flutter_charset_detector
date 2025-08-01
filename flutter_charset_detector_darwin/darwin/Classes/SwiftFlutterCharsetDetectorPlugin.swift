@@ -12,7 +12,7 @@ public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
         #else
             let messenger = registrar.messenger
         #endif
-        let taskQueue = registrar.messenger().makeBackgroundTaskQueue?()
+        let taskQueue = messenger.makeBackgroundTaskQueue?()
         let channel = FlutterMethodChannel(name: "flutter_charset_detector", binaryMessenger: messenger, codec: FlutterStandardMethodCodec.sharedInstance(), taskQueue: taskQueue)
         let instance = SwiftFlutterCharsetDetectorPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
