@@ -21,10 +21,10 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
 
 SPEC CHECKSUMS:
-  flutter_charset_detector_darwin: fb3692d6d72cb6afcce7b0dd1a9516be6e78556e
+  flutter_charset_detector_darwin: 14f055ebeed6896144cc96b046749df51127a0a3
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   UniversalDetector2: 7c9ffd935cf050eeb19edf7e90f6febe3743a1af
 
 PODFILE CHECKSUM: 236401fc2c932af29a9fcf0e97baeeb2d750d367
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.16.2
