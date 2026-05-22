@@ -1,44 +1,53 @@
 #if os(iOS)
-    import Flutter
+import Flutter
 #elseif os(macOS)
-    import FlutterMacOS
+import FlutterMacOS
 #endif
 import UniversalDetector2
 
-public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
+public class FlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         #if os(iOS)
-            let messenger = registrar.messenger()
-            let taskQueue = messenger.makeBackgroundTaskQueue?()
+        let messenger = registrar.messenger()
+        let taskQueue = messenger.makeBackgroundTaskQueue?()
         #else
-            let messenger = registrar.messenger
-            // makeBackgroundTaskQueue throws on macOS due to
-            // https://github.com/flutter/flutter/issues/162613
-            let taskQueue: FlutterTaskQueue? = nil
+        let messenger = registrar.messenger
+        // makeBackgroundTaskQueue throws on macOS due to
+        // https://github.com/flutter/flutter/issues/162613
+        let taskQueue: FlutterTaskQueue? = nil
         #endif
-        let channel = FlutterMethodChannel(name: "flutter_charset_detector", binaryMessenger: messenger, codec: FlutterStandardMethodCodec.sharedInstance(), taskQueue: taskQueue)
-        let instance = SwiftFlutterCharsetDetectorPlugin()
+        let channel = FlutterMethodChannel(
+            name: "flutter_charset_detector",
+            binaryMessenger: messenger,
+            codec: FlutterStandardMethodCodec.sharedInstance(),
+            taskQueue: taskQueue
+        )
+        let instance = FlutterCharsetDetectorPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let result = { (val: Any?) in
-            DispatchQueue.main.async { result(val) }
+        let resultWrapper = { (value: Sendable?) in
+            nonisolated(unsafe) let result = result
+            DispatchQueue.main.async { result(value) }
         }
+        nonisolated(unsafe) let call = call
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             switch call.method {
             case "autoDecode":
-                handleAutoDecode(call, result)
+                handleAutoDecode(call, resultWrapper)
             case "detect":
-                handleDetect(call, result)
+                handleDetect(call, resultWrapper)
             default:
-                result(FlutterError(code: "UnsupportedMethod", message: "\(call.method) is not supported", details: nil))
+                DispatchQueue.main.async {
+                    result(FlutterError(code: "UnsupportedMethod", message: "\(call.method) is not supported", details: nil))
+                }
             }
         }
     }
 
     func handleAutoDecode(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
-        guard let args = call.arguments as? [String:Any?] else {
+        guard let args = call.arguments as? [String: Any?] else {
             result(FlutterError(code: "MissingArgs", message: "Required arguments missing", details: "\(call.method) requires 'data'"))
             return
         }
@@ -48,7 +57,7 @@ public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
         }
         // Elsewhere in the plugin we use the term "charset" instead of
         // "encoding", but for consistency with iOS APIs we use the term in a
-        // limited capacity here
+        // limited capacity here.
         guard let encodingName = UniversalDetector.encodingAsString(with: data.data) else {
             result(FlutterError(code: "DetectionFailed", message: "The charset could not be detected", details: nil))
             return
@@ -65,12 +74,12 @@ public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
         }
         result([
             "charset": encodingName,
-            "string": decoded
+            "string": decoded,
         ])
     }
 
     func handleDetect(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
-        guard let args = call.arguments as? [String:Any?] else {
+        guard let args = call.arguments as? [String: Any?] else {
             result(FlutterError(code: "MissingArgs", message: "Required arguments missing", details: "\(call.method) requires 'data'"))
             return
         }
@@ -80,11 +89,11 @@ public class SwiftFlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
         }
         // Elsewhere in the plugin we use the term "charset" instead of
         // "encoding", but for consistency with iOS APIs we use the term in a
-        // limited capacity here
+        // limited capacity here.
         guard let encodingName = UniversalDetector.encodingAsString(with: data.data) else {
             result(FlutterError(code: "DetectionFailed", message: "The charset could not be detected", details: nil))
             return
         }
-        result(encodingName);
+        result(encodingName)
     }
 }
