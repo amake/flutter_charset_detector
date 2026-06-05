@@ -1,3 +1,7 @@
+## 6.0.0
+
+* Android implementation now requires Flutter 3.44/Dart 3.12
+
 ## 5.0.0
 
 * Web implementation now requires Dart 3.3+
