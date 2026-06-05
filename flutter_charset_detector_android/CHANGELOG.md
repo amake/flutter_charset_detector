@@ -1,3 +1,7 @@
+## 4.0.0
+- Updates minimum supported SDK version to Flutter 3.44/Dart 3.12.
+- Migrates to built-in Kotlin
+
 ## 3.1.1
 * Bump Kotlin to 2.2.0
 * Remove unneeded dependency
