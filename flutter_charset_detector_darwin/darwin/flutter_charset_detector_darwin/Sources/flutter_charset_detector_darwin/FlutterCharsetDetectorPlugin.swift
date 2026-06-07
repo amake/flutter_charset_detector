@@ -39,9 +39,7 @@ public class FlutterCharsetDetectorPlugin: NSObject, FlutterPlugin {
             case "detect":
                 handleDetect(call, resultWrapper)
             default:
-                DispatchQueue.main.async {
-                    result(FlutterError(code: "UnsupportedMethod", message: "\(call.method) is not supported", details: nil))
-                }
+                resultWrapper(FlutterError(code: "UnsupportedMethod", message: "\(call.method) is not supported", details: nil))
             }
         }
     }
