@@ -1,3 +1,6 @@
+## 1.3.1
+* Fix build with Swift 6
+
 ## 1.3.0
 * Support Swift Package Manager
 
