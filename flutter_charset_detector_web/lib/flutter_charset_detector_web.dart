@@ -8,6 +8,15 @@ import 'package:flutter_charset_detector_web/js_charset_detector.dart'
 import 'package:flutter_charset_detector_web/js_textdecoder.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
+const _textDecoderLabels = {
+  'cp874': 'windows-874',
+  'cp932': 'shift_jis',
+  'cp949': 'euc-kr',
+  'maccyrillic': 'x-mac-cyrillic',
+  'macroman': 'macintosh',
+  'utf-8-sig': 'utf-8',
+};
+
 class CharsetDetectorWeb extends CharsetDetectorPlatform {
   CharsetDetectorWeb() {
     if (kDebugMode) {
@@ -23,11 +32,12 @@ class CharsetDetectorWeb extends CharsetDetectorPlatform {
   @override
   Future<DecodingResult> autoDecode(Uint8List bytes) async {
     final byteString = String.fromCharCodes(bytes);
-    final detectedMap = jschardet.detect(byteString.toJS, null);
-    final decoder = TextDecoder(detectedMap.encoding);
+    final detectedMap = jschardet.detect(byteString.toJS);
+    final detectedEncoding = _requireDetectedEncoding(detectedMap.encoding);
+    final decoder = TextDecoder(_textDecoderLabel(detectedEncoding));
     debugPrint(
       'Detected result; '
-      'encoding: ${detectedMap.encoding} (normalized to: ${decoder.encoding}), '
+      'encoding: $detectedEncoding (normalized to: ${decoder.encoding}), '
       'confidence: ${detectedMap.confidence}',
     );
     final decodedString = decoder.decode(bytes.toJS);
@@ -41,7 +51,17 @@ class CharsetDetectorWeb extends CharsetDetectorPlatform {
   @override
   Future<String> detect(Uint8List bytes) async {
     final byteString = String.fromCharCodes(bytes);
-    final detectedMap = jschardet.detect(byteString.toJS, null);
-    return detectedMap.encoding;
+    final detectedMap = jschardet.detect(byteString.toJS);
+    return _requireDetectedEncoding(detectedMap.encoding);
   }
+
+  String _requireDetectedEncoding(String? encoding) {
+    if (encoding == null) {
+      throw StateError('jschardet could not determine the input encoding.');
+    }
+    return encoding;
+  }
+
+  String _textDecoderLabel(String encoding) =>
+      _textDecoderLabels[encoding.toLowerCase()] ?? encoding;
 }

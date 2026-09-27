@@ -1,17 +1,17 @@
 import 'dart:js_interop';
 
 @JS('jschardet.detect')
-external DetectedMap detect(JSAny data, OptionsMap? options);
+external DetectedMap detect(JSAny data, [OptionsMap? options]);
 
 @JS('jschardet.detectAll')
-external JSArray<DetectedMap> detectAll(JSAny data, OptionsMap? options);
+external JSArray<DetectedMap> detectAll(JSAny data, [OptionsMap? options]);
 
 @JS('jschardet.enableDebug')
 external void enableDebug();
 
 extension type DetectedMap._(JSObject o) implements JSObject {
   external DetectedMap({String encoding, num confidence});
-  external String get encoding;
+  external String? get encoding;
   external num get confidence;
 }
 
