@@ -1,3 +1,6 @@
+## 2.1.0
+* Bump jschardet to 4.0.0
+
 ## 2.0.0
 
 * Switch from `js` to `dart:js_interop`
