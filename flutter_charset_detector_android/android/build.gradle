@@ -51,5 +51,5 @@ kotlin {
 dependencies {
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0'
-    implementation 'com.github.albfernandez:juniversalchardet:2.5.1'
+    implementation 'com.github.albfernandez:juniversalchardet:2.5.2'
 }
