@@ -1,3 +1,6 @@
+## 4.0.2
+* Bump juniversalchardet to 2.5.2
+
 ## 4.0.1
 * Bump juniversalchardet to 2.5.1
 
